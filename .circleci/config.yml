@@ -14,7 +14,7 @@ jobs:
       #- run: apt-get install -y sudo
       #- run: sudo npm install -g npm@latest
       # - run: npm run test
-      - run: npm start
+      # - run: npm start
 
   deploy:
     docker:
