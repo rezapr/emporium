@@ -1,26 +1,51 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+orbs:
+  node: circleci/node@5.0.2
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  build_and_test:
+    executor: node/default
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install --legacy-peer-deps
+      #- run: apt-get install -y sudo
+      #- run: sudo npm install -g npm@latest
+      - run: npm run test
+      - run: npm start
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  deploy:
+    docker:
+      - image: cimg/node:16.14.2
+    environment:
+      SERVER_NAME: registry.digitalocean.com
+      REPO_NAME: sg-bigboxapp-cr1
+      IMAGE_NAME: emporium:0.0.1
+    working_directory: ~/app
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.11
+          # docker_layer_caching: true
+      - run:
+          name: Build and push Docker image
+          command: |
+            echo "$DOCR_PASS" | docker login -u $DOCR_PASS --password-stdin $SERVER_NAME/$REPO_NAME
+            docker build -t $IMAGE_NAME .
+            docker tag $IMAGE_NAME $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
+            docker push $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
+
 workflows:
-  say-hello-workflow:
+  on_commit:
     jobs:
-      - say-hello
+      - build_and_test
+      - deploy:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only:
+                - DEV
+                - QA
