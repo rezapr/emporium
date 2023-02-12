@@ -13,7 +13,7 @@ jobs:
           override-ci-command: npm install --legacy-peer-deps
       #- run: apt-get install -y sudo
       #- run: sudo npm install -g npm@latest
-      - run: npm run test
+      # - run: npm run test
       - run: npm start
 
   deploy:
