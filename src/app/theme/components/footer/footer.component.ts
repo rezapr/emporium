@@ -9,7 +9,6 @@ export class FooterComponent implements OnInit {
   public lat: number = 40.678178;
   public lng: number = -73.944158;
   public zoom: number = 12;
-  public thisYear = new Date().getFullYear();
 
   constructor() { }
 

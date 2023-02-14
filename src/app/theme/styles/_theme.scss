@@ -4,9 +4,9 @@
 @import 'theme-reset';
 .app{
     &.green{
-        @import "skins/blue";
-        @include mat.all-component-colors($blue-theme);
-        @include theme-reset($blue-theme);
+        @import "skins/green";
+        @include mat.all-component-colors($green-theme);
+        @include theme-reset($green-theme);
     }
     &.blue{
         @import "skins/blue";
