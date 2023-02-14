@@ -22,6 +22,7 @@ jobs:
     environment:
       SERVER_NAME: registry.digitalocean.com
       REPO_NAME: sg-bigboxapp-cr1
+      # Image build version
       IMAGE_NAME: emporium:0.0.2
     working_directory: ~/app
     steps:
