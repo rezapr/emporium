@@ -3,11 +3,15 @@ version: 2.1
 # orbs:
 #   node: circleci/node@5.1.1
 
+orbs:
+  browser-tools: circleci/browser-tools@1.4.6
+
 jobs:
   build_and_test:
     docker:
       - image: cimg/node:20.11.0-browsers  
     steps:
+      - browser-tools/install-chrome
       - checkout
       - run: yarn install
       - run: yarn test      
