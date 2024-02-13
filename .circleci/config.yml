@@ -1,33 +1,29 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@5.0.2
+# orbs:
+#   node: circleci/node@5.1.1
 
 jobs:
   build_and_test:
-    executor: node/default
+    docker:
+      - image: cimg/node:20.11.0
     steps:
       - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install --legacy-peer-deps
-      #- run: apt-get install -y sudo
-      #- run: sudo npm install -g npm@latest
-      - run: npm run test
-      - run: npm start
-
+      - run: yarn install
+      - run: yarn test
+    working_directory: ~/app
   deploy:
     docker:
-      - image: cimg/node:16.14.2
+      - image: cimg/node:20.11.0
     environment:
       SERVER_NAME: registry.digitalocean.com
-      REPO_NAME: sg-bigboxapp-cr1
-      IMAGE_NAME: emporium:0.0.1
+      REPO_NAME: sg-invifo-cr-1
+      IMAGE_NAME: invifo-ui:0.1.0
     working_directory: ~/app
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.11
+          version: 20.10.24
           # docker_layer_caching: true
       - run:
           name: Build and push Docker image
@@ -36,7 +32,6 @@ jobs:
             docker build -t $IMAGE_NAME .
             docker tag $IMAGE_NAME $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
             docker push $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
-
 workflows:
   on_commit:
     jobs:
