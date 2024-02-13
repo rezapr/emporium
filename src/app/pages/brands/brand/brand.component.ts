@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from '../../../shared/products-carousel/product-dialog/product-dialog.component';
 import { AppService } from '../../../app.service';
 import { Product, Category } from "../../../app.models";
 import { Settings, AppSettings } from 'src/app/app.settings';
-import { isPlatformBrowser } from '@angular/common';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-brand',
@@ -27,8 +27,40 @@ export class BrandComponent implements OnInit {
   public brands = [];
   public priceFrom: number = 750;
   public priceTo: number = 1599;
-  public colors = ["#5C6BC0","#66BB6A","#EF5350","#BA68C8","#FF4081","#9575CD","#90CAF9","#B2DFDB","#DCE775","#FFD740","#00E676","#FBC02D","#FF7043","#F5F5F5","#000000"];
-  public sizes = ["S","M","L","XL","2XL","32","36","38","46","52","13.3\"","15.4\"","17\"","21\"","23.4\""];
+  public colors = [
+    { name: "#5C6BC0", selected: false },
+    { name: "#66BB6A", selected: false },
+    { name: "#EF5350", selected: false },
+    { name: "#BA68C8", selected: false },
+    { name: "#FF4081", selected: false },
+    { name: "#9575CD", selected: false },
+    { name: "#90CAF9", selected: false },
+    { name: "#B2DFDB", selected: false },
+    { name: "#DCE775", selected: false },
+    { name: "#FFD740", selected: false },
+    { name: "#00E676", selected: false },
+    { name: "#FBC02D", selected: false },
+    { name: "#FF7043", selected: false },
+    { name: "#F5F5F5", selected: false },
+    { name: "#696969", selected: false }
+  ];
+  public sizes = [
+    { name: "S", selected: false },
+    { name: "M", selected: false },
+    { name: "L", selected: false },
+    { name: "XL", selected: false },
+    { name: "2XL", selected: false },
+    { name: "32", selected: false },
+    { name: "36", selected: false },
+    { name: "38", selected: false },
+    { name: "46", selected: false },
+    { name: "52", selected: false },
+    { name: "13.3\"", selected: false },
+    { name: "15.4\"", selected: false },
+    { name: "17\"", selected: false },
+    { name: "21\"", selected: false },
+    { name: "23.4\"", selected: false }
+  ]; 
   public page:any;
   public settings: Settings;
   constructor(public appSettings:AppSettings, 
@@ -36,7 +68,7 @@ export class BrandComponent implements OnInit {
               public appService:AppService, 
               public dialog: MatDialog, 
               private router: Router,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              public domHandlerService: DomHandlerService) {
     this.settings = this.appSettings.settings;
   }
 
@@ -46,10 +78,10 @@ export class BrandComponent implements OnInit {
     this.sub = this.activatedRoute.params.subscribe(params => {
      // console.log(params['name']);
     });
-    if(window.innerWidth < 960){
+    if(this.domHandlerService.window?.innerWidth < 960){
       this.sidenavOpen = false;
     };
-    if(window.innerWidth < 1280){
+    if(this.domHandlerService.window?.innerWidth < 1280){
       this.viewCol = 33.3;
     };
 
@@ -85,8 +117,8 @@ export class BrandComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
-    (window.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
+    (this.domHandlerService.window?.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
+    (this.domHandlerService.window?.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
   }
 
   public changeCount(count){
@@ -119,9 +151,7 @@ export class BrandComponent implements OnInit {
   public onPageChanged(event){
     this.page = event;
     this.getAllProducts(); 
-    if (isPlatformBrowser(this.platformId)) {
-      window.scrollTo(0,0);
-    }  
+    this.domHandlerService.winScroll(0,0); 
   }
 
   public onChangeCategory(event){

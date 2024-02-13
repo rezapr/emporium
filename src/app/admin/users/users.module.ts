@@ -30,6 +30,6 @@ export const routes: Routes = [
   declarations: [
     UsersComponent,
     UserDialogComponent
-  ] 
+  ]
 })
 export class UsersModule { }

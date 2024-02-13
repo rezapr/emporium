@@ -16,7 +16,7 @@ export class TransactionsComponent {
   public xAxisLabel = 'Store';
   public showYAxisLabel = true;
   public yAxisLabel = 'Transactions';
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#3F51B5', '#E91E63', '#43A047', '#FDD835', '#F4511E', '#606060']
   };   
 

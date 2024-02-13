@@ -1,5 +1,5 @@
-.mat-card.product-image {
-    padding: 6px;
+.mat-mdc-card.product-image {
+    padding: 8px;
     text-align: center;
     button{
         position: absolute;
@@ -10,7 +10,7 @@
     img{
         max-width: 100%;
     }
-    .mat-chip-list{
+    .mat-mdc-chip-listbox {
         position: absolute;
         top: 10px; 
         left: 10px;
@@ -24,6 +24,9 @@
         padding: 2px;
         .swiper-slide{
             text-align: center;
+            .mat-mdc-card {
+                display: block; 
+            }
             img{
                 max-width: 100%;
             }
@@ -41,7 +44,7 @@
     }
 }
 
-.mat-card.zoom-viewer{
+.mat-mdc-card.zoom-viewer{
     position: absolute;
     display: none;
     background-repeat: no-repeat;
@@ -59,13 +62,14 @@
     margin-left: 6px;
 }
 
-.mat-list.reviews{
-    .mat-list-item .mat-list-avatar.review-author{
+.mat-mdc-list.reviews { 
+    .mat-mdc-list-item .mat-mdc-list-item-avatar.review-author{
         width: 80px;
         height: 80px;
+        align-self: auto;
     }
-    .mat-list-item .mat-line.text{
-        white-space: unset;
+    .mat-mdc-list-item .text{
+        white-space: normal;
         font-style: italic;
         margin: 10px 0;
     }
@@ -76,7 +80,7 @@
 
 
 @media (min-width: 1280px) {  
-    .mat-card.product-image img{
+    .mat-mdc-card.product-image img{
         cursor: zoom-in;
         cursor:url('../../../../assets/images/others/zoom.svg') 10 10, zoom-in;
     }

@@ -1,23 +1,21 @@
-@import "../../../theme/styles/mixins";
-
-.menu-expand-icon{
-    position: absolute;
-    right: 10px;
-    top: 13px;
-}
+@import "../../../theme/styles/mixins"; 
 
 .menu-item{    
-    .mat-button{
-        padding: 0;    
-        padding-top: 6px;
-        padding-bottom: 6px; 
+    .mat-mdc-button{
         width: 100%;
         font-weight: 400;
+        height: 42px;
+        padding-left: 10px;
         border-radius: 0;
-        .menu-icon{
+        .mat-icon.menu-icon {
             margin-right: 12px;
             padding: 7px;
             border-radius: 50%; 
+        }
+        .mat-icon.menu-expand-icon {
+            position: absolute;
+            right: 10px;
+            top: 13px;
         }
         &.expanded{
             .menu-expand-icon{
@@ -26,10 +24,7 @@
                 transform: rotate(180deg);
             }
         }
-    }
-    .mat-button-wrapper{
-        padding-left: 16px;
-    }    
+    }   
 }
 
 .sub-menu{
@@ -39,8 +34,8 @@
     -webkit-transition: max-height 0.25s ease-out;  
     -moz-transition: max-height 0.25s ease-out;  
     transition: max-height 0.25s ease-out;    
-    .mat-button{
-        padding-left: 20px;      
+    .mat-mdc-button{
+        padding-left: 40px;      
     } 
     &.show{
         max-height: 900px;

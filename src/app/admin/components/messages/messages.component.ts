@@ -12,9 +12,9 @@ import { MessagesService } from './messages.service';
 export class MessagesComponent implements OnInit {  
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   public selectedTab:number=1;
-  public messages:Array<Object>;
-  public files:Array<Object>;
-  public meetings:Array<Object>;  
+  public messages: any[];
+  public files: any[];
+  public meetings: any[];  
   constructor(private messagesService:MessagesService) { 
     this.messages = messagesService.getMessages();
     this.files = messagesService.getFiles();

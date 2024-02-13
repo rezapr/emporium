@@ -44,7 +44,7 @@
                 padding: 16px 0;
                 font-weight: 500;
             }
-            .mat-card{ 
+            .mat-mdc-card{ 
                 margin-bottom: 24px;
                 background-size: cover;
                 height: 300px;
@@ -55,14 +55,14 @@
                             0px 1px 8px 0px rgba(0, 0, 0, 0.12);
             }
             &:hover{
-                .mat-card{
+                .mat-mdc-card{
                     background-position: bottom;
                 }
 
             }
         }
     }
-    .mat-raised-button{
+    .mat-mdc-raised-button{
         margin: 0 6px;
     }
     p{

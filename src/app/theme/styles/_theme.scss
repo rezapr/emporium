@@ -1,5 +1,11 @@
-@use '@angular/material' as mat;
-@include mat.core();
+@use '@angular/material' as mat;  
+@import './variables'; 
+$custom-typography: mat.define-typography-config( 
+    $body-1: mat.define-typography-level(14px, 20px, 400, $font-family),
+    $button: mat.define-typography-level(14px, 22px, 600, $font-family, $letter-spacing: 0.02em),
+);
+@include mat.all-component-typographies($custom-typography); 
+@include mat.core(); 
 
 @import 'theme-reset';
 .app{

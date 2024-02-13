@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
-import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+import { InputFileConfig, InputFileModule } from 'src/app/theme/components/input-file/input-file.module';
 const config: InputFileConfig = {
   fileAccept: '*'
 };

@@ -12,7 +12,8 @@ export class LatestOrdersComponent implements OnInit {
     { number: '#2972', date: 'January 7, 2018', status: 'Processing', total: '$255.99 for 1 item', invoice: true },
     { number: '#2971', date: 'January 5, 2018', status: 'Completed', total: '$73.00 for 1 item', invoice: true },
     { number: '#1981', date: 'December 24, 2017', status: 'Pending Payment', total: '$285.00 for 2 items', invoice: false },
-    { number: '#1781', date: 'September 3, 2017', status: 'Refunded', total: '$49.00 for 2 items', invoice: false }
+    { number: '#1781', date: 'September 3, 2017', status: 'Refunded', total: '$49.00 for 2 items', invoice: false },
+    { number: '#2546', date: 'October 18, 2017', status: 'Processing', total: '$72.00 for 1 items', invoice: false }
   ]
   constructor() { }
 

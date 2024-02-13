@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { AppSettings, Settings } from '../app.settings';
 import { Router, NavigationEnd } from '@angular/router'; 
 import { MenuService } from './components/menu/menu.service';
+import { DomHandlerService } from '../dom-handler.service';
 
 @Component({
   selector: 'app-admin',
@@ -16,12 +17,13 @@ export class AdminComponent implements OnInit {
   public toggleSearchBar:boolean = false;
   constructor(public appSettings:AppSettings, 
               public router:Router,
-              private menuService: MenuService){        
+              private menuService: MenuService,
+              public domHandlerService: DomHandlerService){        
     this.settings = this.appSettings.settings;
   }
 
-  ngOnInit() {  
-    if(window.innerWidth <= 960){ 
+  ngOnInit() { 
+    if(this.domHandlerService.window?.innerWidth <= 960){ 
       this.settings.adminSidenavIsOpened = false;
       this.settings.adminSidenavIsPinned = false;
     }; 
@@ -32,14 +34,14 @@ export class AdminComponent implements OnInit {
   }
 
   ngAfterViewInit(){  
-    if(document.getElementById('preloader')){
-      document.getElementById('preloader').classList.add('hide');
+    if(this.domHandlerService.winDocument.getElementById('preloader')){
+      this.domHandlerService.winDocument.getElementById('preloader').classList.add('hide');
     } 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.scrollToTop();
       } 
-      if(window.innerWidth <= 960){
+      if( this.domHandlerService.window?.innerWidth <= 960){
         this.sidenav.close(); 
       }                
     });  
@@ -52,25 +54,25 @@ export class AdminComponent implements OnInit {
 
   public scrollToTop(){
     var scrollDuration = 200;
-    var scrollStep = -window.pageYOffset  / (scrollDuration / 20);
+    var scrollStep = -this.domHandlerService.window?.pageYOffset / (scrollDuration / 20);
     var scrollInterval = setInterval(()=>{
-      if(window.pageYOffset != 0){
-         window.scrollBy(0, scrollStep);
+      if(this.domHandlerService.window?.pageYOffset != 0){
+        this.domHandlerService.window?.scrollBy(0, scrollStep);
       }
       else{
         clearInterval(scrollInterval); 
       }
     },10);
-    if(window.innerWidth <= 768){
+    if(this.domHandlerService.window?.innerWidth <= 768){
       setTimeout(() => {  
-        window.scrollTo(0,0); 
+        this.domHandlerService.window?.scrollTo(0,0); 
       });
     }
   }
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    if(window.innerWidth <= 960){
+    if(this.domHandlerService.window?.innerWidth <= 960){
       this.settings.adminSidenavIsOpened = false;
       this.settings.adminSidenavIsPinned = false; 
     }

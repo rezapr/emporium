@@ -11,7 +11,7 @@ export class InfoCardsComponent implements OnInit {
   public products: any[];
   public customers: any[];
   public refunds: any[];
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['rgba(255,255,255,0.8)']
   }; 
   public autoScale = true;

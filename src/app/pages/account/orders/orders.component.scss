@@ -1,7 +1,7 @@
-.orders-table.mat-table {
+.orders-table.mat-mdc-table {
     display: block;
     overflow-x:auto;
-    .mat-row, .mat-header-row {
+    .mat-mdc-row, .mat-mdc-header-row {
         display: flex;
         border-bottom-width: 1px;
         border-bottom-style: solid;
@@ -10,15 +10,15 @@
         padding: 0 24px;
         min-width: 870px;
     }
-    .mat-cell, .mat-header-cell {
+    .mat-mdc-cell, .mat-mdc-header-cell {
         flex: 1;
         overflow: hidden;
         word-wrap: break-word;
     }
-    .mat-header-cell {
+    .mat-mdc-header-cell {
         font-size: 14px;
     }
-    .mat-cell{
+    .mat-mdc-cell{
         .order{
             color: inherit;
             text-decoration: none;

@@ -16,7 +16,7 @@ export class DailyViewsStatsComponent {
   public xAxisLabel = 'Days';
   public showYAxisLabel = true;
   public yAxisLabel = 'Views';
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060']
   }; 
   public autoScale = true; 

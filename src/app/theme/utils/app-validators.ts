@@ -5,6 +5,7 @@ export function emailValidator(control: UntypedFormControl): {[key: string]: any
     if (control.value && !emailRegexp.test(control.value)) {
         return {invalidEmail: true};
     }
+    return { invalidEmail: false }
 }
 
 export function matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {

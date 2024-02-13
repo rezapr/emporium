@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-category-list',
@@ -12,7 +13,7 @@ export class CategoryListComponent {
   @Output() change: EventEmitter<any> = new EventEmitter();
   mainCategories;
 
-  constructor() { }
+  constructor(public domHandlerService: DomHandlerService) { }
 
   public ngDoCheck() {
     if(this.categories && !this.mainCategories) {
@@ -21,7 +22,7 @@ export class CategoryListComponent {
   }
 
   public stopClickPropagate(event: any){
-    if(window.innerWidth < 960){
+    if(this.domHandlerService.window?.innerWidth < 960){
       event.stopPropagation();
       event.preventDefault();
     }    

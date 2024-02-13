@@ -1,9 +1,9 @@
 <div fxLayout="row wrap">
-    <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-1">
+    <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-2">
         <mat-card class="product-item text-center">
-            <mat-chip-list *ngIf="product.discount">
-                <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-            </mat-chip-list> 
+            <mat-chip-listbox *ngIf="product.discount">
+                <mat-chip-option color="warn" highlighted selectable="false">{{product.discount}}% OFF</mat-chip-option>
+            </mat-chip-listbox> 
             <img [src]="product.images[0].medium" alt=""> 
             <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4>                                                                     
             <div class="title text-truncate">
@@ -19,7 +19,7 @@
             <div class="divider mt-2"></div>
             <div class="icons">
                 <a [routerLink]="['/admin/products/add-product', product.id]" mat-mini-fab color="primary" matTooltip="Edit"><mat-icon>edit</mat-icon></a>
-                <span class="px-1"> <a [routerLink]="['/admin/products/product-detail', product.id]" mat-mini-fab color="primary" matTooltip="View"><mat-icon>remove_red_eye</mat-icon></a></span>
+                <a [routerLink]="['/admin/products/product-detail', product.id]" mat-mini-fab color="primary" matTooltip="View" class="mx-2"><mat-icon>remove_red_eye</mat-icon></a>
                 <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(product)"><mat-icon>delete</mat-icon></button> 
             </div>
         </mat-card>
@@ -27,9 +27,9 @@
 </div>
 
 <div *ngIf="products.length > 0" fxLayout="row wrap">
-    <div fxFlex="100" class="p-1"> 
-        <mat-card class="p-0 text-center">           
-            <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+    <div fxFlex="100" class="p-2"> 
+        <mat-card class="text-center">           
+            <pagination-controls class="product-pagination" [autoHide]="true" [maxSize]="5" (pageChange)="onPageChanged($event)"></pagination-controls>
         </mat-card>
     </div>
 </div>

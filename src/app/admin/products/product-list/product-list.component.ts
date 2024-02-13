@@ -3,6 +3,7 @@ import { AppService } from 'src/app/app.service';
 import { Product } from 'src/app/app.models';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,12 +15,13 @@ export class ProductListComponent implements OnInit {
   public viewCol: number = 25;
   public page: any;
   public count = 12;
-  constructor(public appService:AppService, public dialog: MatDialog) { }
+  constructor(public appService:AppService, public dialog: MatDialog, public domHandlerService: DomHandlerService) { }
 
   ngOnInit(): void {
-    if(window.innerWidth < 1280){
+    if(this.domHandlerService.window?.innerWidth < 1280){
       this.viewCol = 33.3;
     };
+    this.getCategories();
     this.getAllProducts(); 
   }
 
@@ -35,12 +37,12 @@ export class ProductListComponent implements OnInit {
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0); 
   }
 
   @HostListener('window:resize')
   public onWindowResize():void { 
-    (window.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
+    (this.domHandlerService.window?.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
   }
  
 
@@ -60,6 +62,14 @@ export class ProductListComponent implements OnInit {
         } 
       } 
     }); 
+  }
+
+  public getCategories(){  
+    if(this.appService.Data.categories.length == 0) { 
+      this.appService.getCategories().subscribe(data => { 
+        this.appService.Data.categories = data;
+      });
+    } 
   }
 
 }

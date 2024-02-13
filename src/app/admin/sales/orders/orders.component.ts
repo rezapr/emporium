@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-orders',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  public orders = [
+  orders = [
     { number: '#3258', date: 'March 29, 2018', status: 'Completed', total: '$140.00 for 2 items', invoice: true },
     { number: '#3145', date: 'February 14, 2018', status: 'On hold', total: '$255.99 for 1 item', invoice: false },
     { number: '#2972', date: 'January 7, 2018', status: 'Processing', total: '$255.99 for 1 item', invoice: true },
@@ -20,16 +21,16 @@ export class OrdersComponent implements OnInit {
     { number: '#1972', date: 'January 10, 2018', status: 'Processing', total: '$255.99 for 1 item', invoice: true },
     { number: '#8971', date: 'October 3, 2019', status: 'Completed', total: '$73.00 for 1 item', invoice: true }
   ]
-  public page: any;
-  public count = 6;
-  constructor() { }
+  page: any;
+  count = 6;
+  domHandlerService = inject(DomHandlerService); 
 
   ngOnInit(): void {
   }
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0);
   }
 
 }

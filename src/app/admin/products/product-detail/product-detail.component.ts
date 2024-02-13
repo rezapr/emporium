@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app.service';
-import { SwiperDirective, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwiperDirective, SwiperConfigInterface } from '../../../theme/components/swiper/swiper.module';
 import { Product } from 'src/app/app.models';
 import { ProductZoomComponent } from './product-zoom/product-zoom.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormBuilder, UntypedFormGroup, FormControl, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/theme/utils/app-validators';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -23,9 +24,14 @@ export class ProductDetailComponent implements OnInit {
   private sub: any;
   public form: UntypedFormGroup;
 
-  constructor(public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: UntypedFormBuilder) { }
+  constructor(public appService:AppService, 
+              private activatedRoute: ActivatedRoute, 
+              public dialog: MatDialog, 
+              public formBuilder: UntypedFormBuilder,
+              public domHandlerService: DomHandlerService) { }
 
   ngOnInit(): void {
+    this.getCategories();
     this.sub = this.activatedRoute.params.subscribe(params => {  
       if(params['id']){
         this.getProductById(params['id']); 
@@ -81,7 +87,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   public onMouseMove(e){
-    if(window.innerWidth >= 1280){
+    if(this.domHandlerService.window?.innerWidth >= 1280){
       var image, offsetX, offsetY, x, y, zoomer;
       image = e.currentTarget; 
       offsetX = e.offsetX;
@@ -117,6 +123,14 @@ export class ProductDetailComponent implements OnInit {
     if(this.form.valid){
       console.log(this.form.value);
     }
+  }
+
+  public getCategories(){  
+    if(this.appService.Data.categories.length == 0) { 
+      this.appService.getCategories().subscribe(data => { 
+        this.appService.Data.categories = data;
+      });
+    } 
   }
 
 }

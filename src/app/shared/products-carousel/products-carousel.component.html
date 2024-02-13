@@ -2,9 +2,9 @@
     <div class="swiper-wrapper h-100">      
         <div *ngFor="let product of products" class="swiper-slide">
             <mat-card class="product-item">
-                <mat-chip-list *ngIf="product.discount">
-                    <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                </mat-chip-list>
+                <mat-chip-listbox *ngIf="product.discount">
+                    <mat-chip-option color="warn" highlighted selectable="false">{{product.discount}}% OFF</mat-chip-option>
+                </mat-chip-listbox>
                 <a [routerLink]="['/products', product.id, product.name]" class="image-link">
                     <img [attr.data-src]="product.images[0].medium" class="swiper-lazy"/>
                     <div class="swiper-lazy-preloader"></div>

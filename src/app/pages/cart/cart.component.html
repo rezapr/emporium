@@ -9,29 +9,29 @@
 
 <mat-card *ngIf="appService.Data.cartList?.length > 0" class="p-0">
 
-  <div class="mat-table cart-table">
-    <div class="mat-header-row">
-      <div class="mat-header-cell">Product</div>
-      <div class="mat-header-cell">Name</div>
-      <div class="mat-header-cell">Price</div>      
-      <div class="mat-header-cell">Quantity</div>
-      <div class="mat-header-cell">Total</div>
-      <div class="mat-header-cell text-center">
-        <div class="px-1">
+  <div class="mat-mdc-table cart-table">
+    <div class="mat-mdc-header-row">
+      <div class="mat-mdc-header-cell">Product</div>
+      <div class="mat-mdc-header-cell">Name</div>
+      <div class="mat-mdc-header-cell">Price</div>      
+      <div class="mat-mdc-header-cell">Quantity</div>
+      <div class="mat-mdc-header-cell">Total</div>
+      <div class="mat-mdc-header-cell text-center">
+        <div class="px-2">
           <button mat-raised-button color="warn" (click)="clear()">Clear All</button>
         </div>
       </div>
     </div>
-    <div *ngFor="let product of appService.Data.cartList" class="mat-row">
-      <div class="mat-cell"><img [src]="product.images[0].small"></div>
-      <div class="mat-cell"><a [routerLink]="['/products', product.id, product.name]" class="product-name">{{product.name}}</a></div>
-      <div class="mat-cell">${{product.newPrice | number : '1.2-2'}}</div>      
-      <div class="mat-cell text-muted">
+    <div *ngFor="let product of appService.Data.cartList" class="mat-mdc-row">
+      <div class="mat-mdc-cell"><img [src]="product.images[0].small"></div>
+      <div class="mat-mdc-cell"><a [routerLink]="['/products', product.id, product.name]" class="product-name">{{product.name}}</a></div>
+      <div class="mat-mdc-cell">${{product.newPrice | number : '1.2-2'}}</div>      
+      <div class="mat-mdc-cell text-muted">
         <app-controls [product]="product" [type]="'wish'" (onQuantityChange)="updateCart($event)"></app-controls>
       </div>
-      <div class="mat-cell">${{total[product.id] | number : '1.2-2'}}</div>
-      <div class="mat-cell text-center">
-        <div class="p-1">
+      <div class="mat-mdc-cell">${{total[product.id] | number : '1.2-2'}}</div>
+      <div class="mat-mdc-cell text-center">
+        <div class="p-2">
           <button mat-mini-fab color="warn" (click)="remove(product)" matTooltip="Clear">
               <mat-icon>close</mat-icon>
           </button>
@@ -39,25 +39,25 @@
       </div>
       
     </div>
-    <div class="mat-row">
-      <div class="mat-cell"><a [routerLink]="['/']" mat-raised-button color="primary">Continue shopping</a></div>
-      <div class="mat-cell"></div>
-      <div class="mat-cell"></div>
-      <div class="mat-cell text-right">
-        <div fxLayout="column" fxLayoutAlign="center end" class="grand-total px-2">
+    <div class="mat-mdc-row">
+      <div class="mat-mdc-cell"><a [routerLink]="['/']" mat-raised-button color="primary">Continue shopping</a></div>
+      <div class="mat-mdc-cell"></div>
+      <div class="mat-mdc-cell"></div>
+      <div class="mat-mdc-cell text-right">
+        <div fxLayout="column" fxLayoutAlign="center end" class="grand-total px-3">
           <span>SubTotal:</span>
           <span class="text-muted">Discount:</span>
           <span class="new-price">Grand total:</span>
         </div>        
       </div>
-      <div class="mat-cell">
+      <div class="mat-mdc-cell">
         <div fxLayout="column" fxLayoutAlign="center start" class="grand-total">
           <span>${{ grandTotal | number : '1.2-2'}}</span>
           <span class="text-muted">15%</span>
           <span class="new-price">${{ (grandTotal - (grandTotal*0.15)) | number : '1.2-2'}}</span>
         </div>
       </div>
-      <div class="mat-cell text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">Proceed To Checkout</a></div>
+      <div class="mat-mdc-cell text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">Proceed To Checkout</a></div>
     </div>
   </div>
 

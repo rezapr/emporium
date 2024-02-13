@@ -1,10 +1,10 @@
-import { Component, OnInit, HostListener, ViewChild, Inject, PLATFORM_ID } from '@angular/core'; 
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core'; 
 import { Router, NavigationEnd } from '@angular/router';
 import { Settings, AppSettings } from '../app.settings';
 import { AppService } from '../app.service';
 import { Category } from '../app.models';
 import { SidenavMenuService } from '../theme/components/sidenav-menu/sidenav-menu.service';
-import { isPlatformBrowser } from '@angular/common';
+import { DomHandlerService } from '../dom-handler.service';
 
 @Component({
   selector: 'app-pages',
@@ -24,7 +24,7 @@ export class PagesComponent implements OnInit {
               public appService:AppService, 
               public sidenavMenuService:SidenavMenuService,
               public router:Router,
-              @Inject(PLATFORM_ID) private platformId: Object) { 
+              public domHandlerService: DomHandlerService) { 
     this.settings = this.appSettings.settings; 
   }
 
@@ -48,7 +48,7 @@ export class PagesComponent implements OnInit {
     if(event.target){
       this.category = this.categories.filter(category => category.name == event.target.innerText)[0];
     }
-    if(window.innerWidth < 960){
+    if(this.domHandlerService.window?.innerWidth < 960){
       this.stopClickPropagate(event);
     } 
   }
@@ -87,33 +87,31 @@ export class PagesComponent implements OnInit {
  
   public scrollToTop(){
     var scrollDuration = 200;
-    var scrollStep = -window.pageYOffset  / (scrollDuration / 20);
+    var scrollStep = -this.domHandlerService.window?.pageYOffset / (scrollDuration / 20);
     var scrollInterval = setInterval(()=>{
-      if(window.pageYOffset != 0){
-         window.scrollBy(0, scrollStep);
+      if(this.domHandlerService.window?.pageYOffset != 0){
+        this.domHandlerService.window?.scrollBy(0, scrollStep);
       }
       else{
         clearInterval(scrollInterval); 
       }
     },10);
-    if(window.innerWidth <= 768){
+    if(this.domHandlerService.window?.innerWidth <= 768){
       setTimeout(() => { 
-        if (isPlatformBrowser(this.platformId)) {
-          window.scrollTo(0,0);
-        }  
+        this.domHandlerService.winScroll(0, 0); 
       });
     }
   }
   @HostListener('window:scroll', ['$event'])
   onWindowScroll($event) {
-    const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);   
-    let header_toolbar = document.getElementById('header-toolbar'); 
+    const scrollTop = Math.max(this.domHandlerService.window?.pageYOffset, this.domHandlerService.winDocument.documentElement.scrollTop, this.domHandlerService.winDocument.body.scrollTop);   
+    let header_toolbar = this.domHandlerService.winDocument.getElementById('header-toolbar'); 
     if(header_toolbar){ 
       if(scrollTop >= header_toolbar.clientHeight) {
         this.settings.mainToolbarFixed = true;
       }
       else{
-        if(!document.documentElement.classList.contains('cdk-global-scrollblock')){
+        if(!this.domHandlerService.winDocument.documentElement.classList.contains('cdk-global-scrollblock')){
           this.settings.mainToolbarFixed = false;
         }        
       } 
@@ -134,7 +132,7 @@ export class PagesComponent implements OnInit {
   }
 
   public closeSubMenus(){
-    if(window.innerWidth < 960){
+    if(this.domHandlerService.window?.innerWidth < 960){
       this.sidenavMenuService.closeAllSubMenus();
     }    
   }

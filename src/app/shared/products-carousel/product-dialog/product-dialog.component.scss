@@ -1,5 +1,5 @@
 .product-dialog{
-    .mat-dialog-container{
+    .mat-mdc-dialog-container{
         overflow: visible !important;
         .close-btn-outer{
             position: relative;
@@ -11,6 +11,9 @@
         }
         .swiper-slide{
             text-align: center;
+            .mat-mdc-card {
+                display: block; 
+            }
             img{
                 max-width: 100%;
             }

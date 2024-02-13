@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AppService } from 'src/app/app.service'; 
 import { MatDialog } from '@angular/material/dialog';
 import { CustomerDialogComponent } from './customer-dialog/customer-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { customers } from './customers';
 import { AppSettings, Settings } from 'src/app/app.settings';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-customers',
@@ -20,6 +21,7 @@ export class CustomersComponent implements OnInit {
   public countries = [];
   public page: any;
   public count = 6;
+  domHandlerService = inject(DomHandlerService);
   public settings:Settings;
   constructor(public appService:AppService, public dialog: MatDialog, public appSettings:AppSettings) {
     this.settings = this.appSettings.settings;
@@ -32,7 +34,7 @@ export class CustomersComponent implements OnInit {
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0); 
   }
 
   public openCustomerDialog(data:any){

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppSettings, Settings } from 'src/app/app.settings';
+import { DomHandlerService } from '../dom-handler.service';
 
 @Component({
   selector: 'app-landing',
@@ -10,7 +11,7 @@ import { AppSettings, Settings } from 'src/app/app.settings';
 export class LandingComponent implements OnInit {
 
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public router:Router) {
+  constructor(public appSettings:AppSettings, public router:Router, public domHandlerService: DomHandlerService) {
     this.settings = this.appSettings.settings;  
   }
 
@@ -66,11 +67,11 @@ export class LandingComponent implements OnInit {
 
 
   public scrollToDemos() {
-    var elmnt = document.getElementById("demos");
+    const elmnt = this.domHandlerService.winDocument.getElementById("demos");
     elmnt.scrollIntoView({behavior: "smooth"});
   }
   public goToTop(){
-    var elmnt = document.getElementById("top");
+    const elmnt = this.domHandlerService.winDocument.getElementById("top");
     elmnt.scrollIntoView({behavior: "smooth"});
   }
 

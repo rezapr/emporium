@@ -1,82 +1,89 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="filter-sidenav" perfectScrollbar>
-        
-        <mat-accordion displayMode="flat" multi="true">
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Categories</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div class="categories-wrapper categories-dropdown" perfectScrollbar>
-                    <app-category-list [categories]="categories" [categoryParentId]="0" (change)="onChangeCategory($event)"></app-category-list>
-                </div>
-            </mat-expansion-panel>
+    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="filter-sidenav">
+        <ng-scrollbar pointerEventsMethod="scrollbar" visibility="hover">
+            <mat-accordion displayMode="flat" multi="true">
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Categories</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="categories-wrapper categories-dropdown">
+                        <ng-scrollbar pointerEventsMethod="scrollbar">
+                            <app-category-list [categories]="categories" [categoryParentId]="0" (change)="onChangeCategory($event)"></app-category-list>
+                        </ng-scrollbar>
+                    </div>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Price</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                    <span>From: <b>${{priceFrom}}</b></span>
-                    <span>To: <b>${{priceTo}}</b></span>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
-                    <mat-slider color="primary" max="2000" min="1" thumb-label="true" [(ngModel)]="priceFrom"></mat-slider>
-                    <mat-slider color="warn" max="2000" min="1" thumb-label="true" [(ngModel)]="priceTo"></mat-slider>
-                </div>
-            </mat-expansion-panel>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Price</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
+                        <span>From: <b>${{priceFrom}}</b></span>
+                        <span>To: <b>${{priceTo}}</b></span>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
+                        <mat-slider color="primary" max="2000" min="1" thumb-label="true"><input matSliderThumb [(ngModel)]="priceFrom"></mat-slider>
+                        <mat-slider color="warn" max="2000" min="1" thumb-label="true"><input matSliderThumb [(ngModel)]="priceTo"/></mat-slider>
+                    </div>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Color</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons">
-                    <button mat-raised-button *ngFor="let color of colors" [style.background]="color">&nbsp;</button>
-                </div>
-            </mat-expansion-panel>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Color</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons"> 
+                        <button mat-raised-button *ngFor="let color of colors" [style.background]="color.name" (click)="color.selected = !color.selected">
+                            <span *ngIf="!color.selected">&nbsp;</span>
+                            <mat-icon *ngIf="color.selected" class="m-0">check</mat-icon>
+                        </button>
+                    </div>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Size</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons">
-                    <button mat-raised-button *ngFor="let size of sizes">{{size}}</button>
-                </div>
-            </mat-expansion-panel>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Size</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-buttons">
+                        <button mat-raised-button *ngFor="let size of sizes" (click)="size.selected = !size.selected" [class.selected]="size.selected">
+                            {{size.name}}                      
+                        </button>
+                    </div>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Condition</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <mat-checkbox color="primary">New</mat-checkbox>
-                    <mat-checkbox color="primary">Used</mat-checkbox>
-                    <mat-checkbox color="primary">Not Specified</mat-checkbox>
-                </div>
-            </mat-expansion-panel>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Condition</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="column">
+                        <mat-checkbox color="primary">New</mat-checkbox>
+                        <mat-checkbox color="primary">Used</mat-checkbox>
+                        <mat-checkbox color="primary">Not Specified</mat-checkbox>
+                    </div>
+                </mat-expansion-panel>
 
-            <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h4>Now starting at $1379</h4>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div fxLayout="row wrap" fxLayoutAlign="center center">
-                   <a [routerLink]="['/products/electronics']"><img src="assets/images/products/probook/2-medium.png" alt="" class="mw-100"></a>
-                </div>
-            </mat-expansion-panel>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h4>Now starting at $1379</h4>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxLayout="row wrap" fxLayoutAlign="center center">
+                    <a [routerLink]="['/products/electronics']"><img src="assets/images/products/probook/2-medium.png" alt="" class="mw-100"></a>
+                    </div>
+                </mat-expansion-panel>
 
-        </mat-accordion>
-
+            </mat-accordion>
+        </ng-scrollbar>
     </mat-sidenav>
     <mat-sidenav-content class="all-products" ngClass.gt-sm="p-left">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="filter-row mat-elevation-z1 text-muted">
@@ -85,7 +92,7 @@
             </button>
             <div>
                 <a mat-button [matMenuTriggerFor]="sortMenu" #sortMenuTrigger="matMenuTrigger">
-                    {{sort}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+                    {{sort}}<mat-icon class="mat-icon-sm caret" iconPositionEnd>arrow_drop_down</mat-icon>
                 </a>
                 <mat-menu #sortMenu="matMenu" xPosition="before" class="app-dropdown" overlapTrigger="true">
                     <span (mouseleave)="sortMenuTrigger.closeMenu()">
@@ -95,9 +102,9 @@
                     </span>
                 </mat-menu>
             </div>
-            <div>
+            <div fxLayoutAlign="start center" >
                 <a mat-button [matMenuTriggerFor]="countsMenu" #countsMenuTrigger="matMenuTrigger">
-                    Show {{count}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+                    Show {{count}}<mat-icon class="mat-icon-sm caret" iconPositionEnd>arrow_drop_down</mat-icon>
                 </a>
                 <mat-menu #countsMenu="matMenu" xPosition="before" class="app-dropdown" overlapTrigger="true">
                     <span (mouseleave)="countsMenuTrigger.closeMenu()">
@@ -121,9 +128,9 @@
         <div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
             <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
                 <mat-card class="product-item text-center">
-                    <mat-chip-list *ngIf="product.discount">
-                        <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                    </mat-chip-list>
+                    <mat-chip-listbox *ngIf="product.discount">
+                        <mat-chip-option color="warn" highlighted selectable="false">{{product.discount}}% OFF</mat-chip-option>
+                    </mat-chip-listbox>
                     <a [routerLink]="['/products', product.id, product.name]" class="image-link">
                         <img [src]="product.images[0].medium" alt="">
                     </a>
@@ -151,9 +158,9 @@
                 <mat-card class="product-item">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="40" class="p-2">
-                            <mat-chip-list *ngIf="product.discount" class="list-view">
-                                <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
-                            </mat-chip-list>
+                            <mat-chip-listbox *ngIf="product.discount" class="list-view">
+                                <mat-chip-option color="warn" highlighted selectable="false">{{product.discount}}% OFF</mat-chip-option>
+                            </mat-chip-listbox>
                             <a [routerLink]="['/products', product.id, product.name]" class="image-link">
                                 <img [src]="product.images[0].medium" alt="">
                             </a>
@@ -184,7 +191,7 @@
         <div *ngIf="products.length > 0" fxLayout="row wrap">
             <div fxFlex="100"> 
                 <mat-card class="p-0 text-center">           
-                    <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+                    <pagination-controls class="product-pagination" [autoHide]="true" [maxSize]="5" (pageChange)="onPageChanged($event)"></pagination-controls>
                 </mat-card>
             </div>
         </div>

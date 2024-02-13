@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from '../../theme/components/swiper/swiper.module';
 
 @Component({
   selector: 'app-brands-carousel',

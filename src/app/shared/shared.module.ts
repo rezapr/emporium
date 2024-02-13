@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperModule } from '../theme/components/swiper/swiper.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -34,14 +35,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  wheelPropagation: true,
-  suppressScrollX: true               
-};
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 import { PipesModule } from '../theme/pipes/pipes.module';
 import { RatingComponent } from './rating/rating.component';
@@ -65,6 +59,7 @@ import { LangComponent } from './lang/lang.component';
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatBadgeModule,
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
@@ -93,7 +88,7 @@ import { LangComponent } from './lang/lang.component';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
-    PerfectScrollbarModule,
+    NgScrollbarModule,
     PipesModule
   ],
   exports: [
@@ -104,6 +99,7 @@ import { LangComponent } from './lang/lang.component';
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatBadgeModule,
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
@@ -132,7 +128,7 @@ import { LangComponent } from './lang/lang.component';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
-    PerfectScrollbarModule,
+    NgScrollbarModule,
     PipesModule,
     RatingComponent,
     ControlsComponent,
@@ -157,8 +153,8 @@ import { LangComponent } from './lang/lang.component';
     ConfirmDialogComponent,
     LangComponent
   ], 
-  providers:[
-    { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG }
-  ]
+  // providers:[
+  //   { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG }
+  // ]
 })
 export class SharedModule { }

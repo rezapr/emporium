@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-transactions',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-  public transactions = [
+  transactions = [
     { orderId: '#2121', transactionId: '#78245214510', date: 'March 29, 2018', paymentMethod: 'Stripe', status: 'Process', amount: '$140.00' },
     { orderId: '#7255', transactionId: '#58272854525', date: 'January 7, 2018', paymentMethod: 'Paypal', status: 'Pending', amount: '$855.00' },
     { orderId: '#4122', transactionId: '#48266987452', date: 'December 24, 2017', paymentMethod: 'Paypal', status: 'Delivered', amount: '$420.00' },
@@ -20,16 +21,16 @@ export class TransactionsComponent implements OnInit {
     { orderId: '#5414', transactionId: '#34861354666', date: 'October 7, 2018', paymentMethod: 'Paypal', status: 'Pending', amount: '$475.00' },
     { orderId: '#8906', transactionId: '#23756748667', date: 'November 2, 2017', paymentMethod: 'Paypal', status: 'Delivered', amount: '$420.00' }
   ]
-  public page: any;
-  public count = 6;
-  constructor() { }
+  page: any;
+  count = 6;
+  domHandlerService = inject(DomHandlerService); 
 
   ngOnInit(): void {
   }
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0); 
   }
 
 }

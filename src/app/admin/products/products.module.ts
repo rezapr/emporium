@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { SwiperModule } from 'ngx-swiper-wrapper';
-import { InputFileModule } from 'ngx-input-file';
+import { SwiperModule } from '../../theme/components/swiper/swiper.module'; 
+import { InputFileModule } from 'src/app/theme/components/input-file/input-file.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductZoomComponent } from './product-detail/product-zoom/product-zoom.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { CategoryDialogComponent } from './categories/category-dialog/category-dialog.component';
+import { CategoryDialogComponent } from './categories/category-dialog/category-dialog.component'; 
 
 export const routes: Routes = [ 
   { path: '', redirectTo: 'product-list', pathMatch: 'full'},

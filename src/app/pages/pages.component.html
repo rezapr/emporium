@@ -1,4 +1,4 @@
-<mat-sidenav-container> 
+<mat-sidenav-container class="pages-container"> 
 
     <mat-sidenav [opened]="false" mode="over" #sidenav class="sidenav mat-elevation-z6">
         <button mat-icon-button color="warn" class="close" (click)="sidenav.close()">
@@ -20,12 +20,11 @@
         </div> 
     </mat-sidenav>
 
-
     <mat-toolbar color="primary" id="header-toolbar">
         <mat-toolbar-row fxLayoutAlign="space-between center" class="top-toolbar theme-container">
             <span fxHide="false" fxHide.gt-sm>
                 <button mat-button (click)="sidenav.toggle()" class="sidenav-toggle">
-                    <mat-icon>menu</mat-icon>
+                    <mat-icon class="mat-icon-md mr-0">menu</mat-icon>
                 </button> 
             </span>
             <span fxShow="false" fxShow.gt-xs fxLayoutAlign="center center"><mat-icon class="mat-icon-sm">call</mat-icon>  Hotline: (+100) 123 456 7890 </span>
@@ -38,8 +37,8 @@
                 <a class="logo" routerLink="/" (click)="closeSubMenus()">Emporium</a>
             </div>
             <div fxFlex fxShow="false" fxShow.gt-sm>
-                <form method="get"  class="search-form" fxLayout="row">
-                    <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" #categoriesMenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-truncate text-muted">{{category?.name}}<mat-icon>arrow_drop_down</mat-icon></button>
+                <form method="get" class="search-form" fxLayout="row">
+                    <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" #categoriesMenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-truncate text-muted">{{category?.name}}<mat-icon iconPositionEnd>arrow_drop_down</mat-icon></button>
                     <mat-menu #categoriesMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="categories-dropdown">
                         <span (mouseleave)="categoriesMenuTrigger.closeMenu()">
                             <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
@@ -53,9 +52,8 @@
             </div>  
             <div fxFlex="20" fxLayout="row" fxLayoutAlign="end center">   
                 <div fxLayoutAlign="center center" [@.disabled]="true">
-                    <button mat-button [matMenuTriggerFor]="cartMenu" #cartMenuTrigger="matMenuTrigger" class="flex-row-button">
-                        <mat-icon class="mat-icon-lg">shopping_cart</mat-icon>
-                        <span *ngIf="appService.Data.totalCartCount > 0" class="cart-items-count">{{appService.Data.totalCartCount}}</span>
+                    <button mat-button [matMenuTriggerFor]="cartMenu" #cartMenuTrigger="matMenuTrigger" class="shopping-cart-btn">
+                        <mat-icon class="mat-icon-lg" [matBadgeHidden]="appService.Data.totalCartCount == 0" [matBadge]="appService.Data.totalCartCount" matBadgeColor="warn" aria-hidden="false">shopping_cart</mat-icon>
                         <div fxLayout="column" fxLayoutAlign="center center" fxShow="false" fxShow.gt-xs class="top-cart">
                             <span>Shopping Cart</span>
                             <span *ngIf="appService.Data.totalCartCount > 0">
@@ -64,7 +62,7 @@
                                 </bdi>
                             </span>
                         </div>
-                        <mat-icon class="mat-icon-sm">arrow_drop_down</mat-icon>
+                        <mat-icon class="mat-icon-sm m-0" iconPositionEnd>arrow_drop_down</mat-icon>
                     </button>
                     <mat-menu #cartMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="top-menu-dropdown cart-dropdown">
                         <ng-template matMenuContent>
@@ -75,26 +73,27 @@
                                 </div>
                                 <div class="divider mt-1"></div>
                                 <div *ngIf="appService.Data.totalCartCount == 0" class="py-1 text-muted text-center">You have no items in your shopping cart.</div>
-                                <mat-list>
-                                    <mat-list-item *ngFor="let product of appService.Data.cartList">                                   
-                                        <h3 matLine class="text-muted"> {{product.name}} </h3>
-                                        <p matLine class="text-muted">
-                                            <bdi>{{product.cartCount}} x ${{product.newPrice | number : '1.2-2'}}</bdi>
-                                        </p>
-                                        <img  [src]="product.images[0].small" alt="image">
+                               
+                                <ng-container *ngFor="let product of appService.Data.cartList">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted list-item">
+                                        <div>
+                                            <h3>{{product.name}}</h3>
+                                            <p><bdi>{{product.cartCount}} x ${{product.newPrice | number : '1.2-2'}}</bdi></p>
+                                        </div>                                       
+                                        <img [src]="product.images[0].small" alt="image">
                                         <button mat-icon-button color="warn" class="remove" (click)="remove(product);stopClickPropagate($event)" matTooltip="Remove" matTooltipPosition="before">
                                             <mat-icon class="mat-icon-sm">close</mat-icon>
                                         </button>
-                                    </mat-list-item>
-                                </mat-list>
+                                    </div>
+                                </ng-container> 
                                 <div *ngIf="appService.Data.cartList.length > 0" class="cart-dropdown-footer">
-                                    <div class="divider mt-1"></div>
-                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted mt-1">
+                                    <div class="divider mt-2"></div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted mt-2">
                                         <b>TOTAL:</b>
                                         <b class="new-price">${{appService.Data.totalPrice | number : '1.2-2'}}</b>
                                     </div>
-                                    <div class="divider mt-1"></div>
-                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-1">
+                                    <div class="divider mt-2"></div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-2">
                                         <button mat-mini-fab color="warn" (click)="clear();stopClickPropagate($event)" matTooltip="Clear All" matTooltipPosition="after">
                                             <mat-icon>remove_shopping_cart</mat-icon>
                                         </button>
@@ -108,13 +107,15 @@
                     </mat-menu>
                 </div> 
                 <div fxLayoutAlign="center center" fxHide="false" fxHide.gt-sm [@.disabled]="true"> 
-                    <button mat-icon-button [matMenuTriggerFor]="searchMenu" #searchMenuTrigger="matMenuTrigger" class="search-toggle-btn">
+                    <button mat-icon-button [matMenuTriggerFor]="searchMenu" #searchMenuTrigger="matMenuTrigger" class="search-toggle-btn p-0">
                         <mat-icon class="mat-icon-lg">search</mat-icon>
                     </button>
                     <mat-menu #searchMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="search-dropdown mat-elevation-z8">
                         <ng-template matMenuContent>
                             <form method="get" fxFlex class="search-form">
-                                <button mat-raised-button [matMenuTriggerFor]="categories2Menu" #categories2MenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-muted" (click)="stopClickPropagate($event)">{{category?.name}}<mat-icon>arrow_drop_down</mat-icon></button>
+                                <button mat-raised-button [matMenuTriggerFor]="categories2Menu" #categories2MenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-muted" (click)="stopClickPropagate($event)">
+                                    {{category?.name}}<mat-icon iconPositionEnd class="m-0">arrow_drop_down</mat-icon> 
+                                </button>
                                 <mat-menu #categories2Menu="matMenu" [overlapTrigger]="false" xPosition="before" class="categories-dropdown">
                                     <ng-template matMenuContent>
                                         <span (mouseleave)="categories2MenuTrigger.closeMenu()">
@@ -133,25 +134,19 @@
             </div> 
         </mat-toolbar-row>
     </mat-toolbar> 
-
-
  
-    <app-menu fxShow="false" fxShow.gt-sm></app-menu>  
-
+    <app-menu fxShow="false" fxShow.gt-sm></app-menu> 
     
     <div class="theme-container main"> 
         <app-breadcrumb></app-breadcrumb>
         <router-outlet></router-outlet>
-    </div>
-    
+    </div>    
 
     <app-options></app-options>
-
     <app-footer></app-footer>
 
     <div *ngIf="showBackToTop" fxLayout="row" fxLayoutAlign="center center" class="back-to-top transition" (click)="scrollToTop()">
         <mat-icon>arrow_upward</mat-icon>
     </div>
-
 
  </mat-sidenav-container>

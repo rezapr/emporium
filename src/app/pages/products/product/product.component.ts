@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntypedFormBuilder, UntypedFormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface, SwiperDirective } from '../../../theme/components/swiper/swiper.module';
 import { Data, AppService } from '../../../app.service';
 import { Product } from "../../../app.models";
 import { emailValidator } from '../../../theme/utils/app-validators';
 import { ProductZoomComponent } from './product-zoom/product-zoom.component';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-product',
@@ -24,7 +25,11 @@ export class ProductComponent implements OnInit {
   public form: UntypedFormGroup;
   public relatedProducts: Array<Product>;
 
-  constructor(public appService:AppService, private activatedRoute: ActivatedRoute, public dialog: MatDialog, public formBuilder: UntypedFormBuilder) {  }
+  constructor(public appService:AppService, 
+              private activatedRoute: ActivatedRoute, 
+              public dialog: MatDialog, 
+              public formBuilder: UntypedFormBuilder,
+              public domHandlerService: DomHandlerService) {  }
 
   ngOnInit() {      
     this.sub = this.activatedRoute.params.subscribe(params => { 
@@ -84,7 +89,7 @@ export class ProductComponent implements OnInit {
   }
 
   public onMouseMove(e){
-    if(window.innerWidth >= 1280){
+    if(this.domHandlerService.window?.innerWidth >= 1280){
       var image, offsetX, offsetY, x, y, zoomer;
       image = e.currentTarget; 
       offsetX = e.offsetX;

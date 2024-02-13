@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit, inject } from '@angular/core'; 
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-withdrawal',
@@ -17,15 +18,14 @@ export class WithdrawalComponent implements OnInit {
   ];
   public page: any;
   public count = 6;
-
-  constructor() { }
-
+  domHandlerService = inject(DomHandlerService); 
+ 
   ngOnInit(): void {
   }
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0);  
   }
 
 }

@@ -1,7 +1,7 @@
 .toolbar-dropdown-menu{
     margin-top: 9px;
     border-radius: 0 !important;
-    .mat-menu-content{
+    .mat-mdc-menu-content{
         padding: 0 !important;
     }
 }
@@ -21,21 +21,21 @@
             border-radius: 50%;
         }
     }
-    .mat-menu-item{
-        height: 36px;
+    .mat-mdc-menu-item{
+        min-height: 36px;
         line-height: 36px;
     }
 }
 
-.h-300p{
+.h-300p {
     height: 300px;
 }
-.h-400p{
+.h-400p {
     height: 400px;
 }
 
 .uppercase{
-    text-transform: uppercase;
+    text-transform: uppercase !important;
 }
 
 .user-block{
@@ -69,10 +69,10 @@
 }
 
 
-.admin-table.mat-table {
+.admin-table.mat-mdc-table {
     display: block;
     overflow-x:auto;
-    .mat-row, .mat-header-row {
+    .mat-mdc-row, .mat-mdc-header-row {
         display: flex;
         border-bottom-width: 1px;
         border-bottom-style: solid;
@@ -81,7 +81,7 @@
         padding: 0 16px;
         min-width: 500px;
     }
-    .mat-cell, .mat-header-cell {
+    .mat-mdc-cell, .mat-mdc-header-cell {
         flex: 1;
         overflow: hidden;
         word-wrap: break-word;
@@ -107,10 +107,10 @@
             flex-basis: 80px;
         }
     }
-    .mat-header-cell {
+    .mat-mdc-header-cell {
         font-size: 14px;
     }
-    .mat-cell{
+    .mat-mdc-cell{
         .actions{
             text-align: right;
             button{
@@ -119,37 +119,31 @@
         }
     }
     &.header-sm{
-        .mat-header-row { 
+        .mat-mdc-header-row { 
             min-height: 36px; 
         }
     }
     &.truncated{
-        .mat-cell, .mat-header-cell { 
+        .mat-mdc-cell, .mat-mdc-header-cell { 
             white-space: nowrap;
             text-overflow: ellipsis;  
         }
     }
 }
 
-.vertical-tabs.mat-tab-group{
-    flex-direction: row;
-    .mat-tab-labels{
+.vertical-tabs.mat-mdc-tab-group{
+    flex-direction: row; 
+    .mat-mdc-tab-labels{
         flex-direction: column;
     }
-    .mat-ink-bar{
+    .mdc-tab-indicator__content--underline {
         display: none;
     }
-    .mat-tab-header{
-        border: none !important
-    }
-    .mat-tab-body-wrapper{
-        padding: 0 16px;
+    .mat-mdc-tab-body-wrapper{
+        padding-left: 16px;
     }
 }
-.tab-content-wrapped.mat-tab-group .mat-tab-body-content{
-    margin: 0 -10px;
+ 
+.tab-content-wrapped.mat-mdc-tab-group .mat-mdc-tab-body-content {
     overflow: hidden;
-}
-.vertical-form-fields-wrapper{
-    min-width: 280px;
 }

@@ -4,11 +4,12 @@ import { Location } from '@angular/common';
 
 import { SidenavMenu } from './sidenav-menu.model';
 import { sidenavMenuItems } from './sidenav-menu';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Injectable()
 export class SidenavMenuService {
 
-    constructor(private location:Location, private router:Router){ } 
+    constructor(private location:Location, private router:Router, private domHandlerService: DomHandlerService){ } 
         
     public getSidenavMenuItems():Array<SidenavMenu> {
         return sidenavMenuItems;
@@ -30,8 +31,8 @@ export class SidenavMenuService {
     }
 
     public toggleMenuItem(menuId){
-        let menuItem = document.getElementById('menu-item-'+menuId);
-        let subMenu = document.getElementById('sub-menu-'+menuId);  
+        let menuItem = this.domHandlerService.winDocument.getElementById('menu-item-'+menuId);
+        let subMenu = this.domHandlerService.winDocument.getElementById('sub-menu-'+menuId);  
         if(subMenu){
             if(subMenu.classList.contains('show')){
                 subMenu.classList.remove('show');
@@ -48,8 +49,8 @@ export class SidenavMenuService {
         let currentMenuItem = menu.filter(item => item.id == menuId)[0];
         menu.forEach(item => {
             if((item.id != menuId && item.parentId == currentMenuItem.parentId) || (currentMenuItem.parentId == 0 && item.id != menuId) ){
-                let subMenu = document.getElementById('sub-menu-'+item.id);
-                let menuItem = document.getElementById('menu-item-'+item.id);
+                let subMenu = this.domHandlerService.winDocument.getElementById('sub-menu-'+item.id);
+                let menuItem = this.domHandlerService.winDocument.getElementById('menu-item-'+item.id);
                 if(subMenu){
                     if(subMenu.classList.contains('show')){
                         subMenu.classList.remove('show');
@@ -62,8 +63,8 @@ export class SidenavMenuService {
 
     public closeAllSubMenus(){        
         sidenavMenuItems.forEach(item => {
-            let subMenu = document.getElementById('sub-menu-'+item.id);
-            let menuItem = document.getElementById('menu-item-'+item.id);
+            let subMenu = this.domHandlerService.winDocument.getElementById('sub-menu-'+item.id);
+            let menuItem = this.domHandlerService.winDocument.getElementById('menu-item-'+item.id);
             if(subMenu){
                 if(subMenu.classList.contains('show')){
                     subMenu.classList.remove('show');

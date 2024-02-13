@@ -8,7 +8,7 @@
         margin-left: 0;
         margin-right: 3px;
     }
-    .app-dropdown.account .mat-menu-content .user-info img{
+    .app-dropdown.account .mat-mdc-menu-content .user-info img{
         margin-right: 0;
         margin-left: 16px;
     } 
@@ -28,7 +28,7 @@
     .swiper-slide{
         direction: rtl;
     }
-    .info-bar .mat-card .content {
+    .info-bar .mat-mdc-card .content {
         margin-left: 0;
         margin-right: 10px;
     }
@@ -36,16 +36,22 @@
         margin-right: 0;
         margin-left: 10px;        
     }
-
-    .cart-items-count{
-        right: 24px;
-        left: auto;
+   
+    .shopping-cart-btn { 
+        .mat-badge-content {
+            left: 8px !important;
+            right: 0 !important;
+        }
     }
-    .cart-dropdown.mat-menu-panel .mat-list .mat-list-item .mat-list-item-content img { 
-        margin-left: 0;
-        margin-right: 10px;
+    .cart-dropdown.mat-mdc-menu-panel{ 
+        .list-item { 
+            img { 
+                margin-left: 0;
+                margin-right: 10px;
+            }  
+        }  
     }
-
+    
     .ratings-count{
         margin-left: 0;
         margin-right: 12px;
@@ -71,7 +77,7 @@
         padding-left: 0;
         padding-right: 50px;
     }
-    .orders-table.mat-table .mat-cell .btn-invoice{
+    .orders-table.mat-mdc-table .mat-mdc-cell .btn-invoice{
         margin-left: 0;
         margin-right: 8px;
     }

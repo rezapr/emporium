@@ -25,7 +25,7 @@
         </div>            
         <div fxLayout="row" fxLayoutAlign="end center">   
             <div fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-xs class="search-bar">
-                <form method="get">
+                <form method="get" fxLayoutAlign="start center">
                     <input type="text" placeholder="Type to search..." class="mat-elevation-z3"  [class.show]="toggleSearchBar">
                     <button mat-icon-button (click)="toggleSearchBar = !toggleSearchBar" type="button">
                         <mat-icon>search</mat-icon>
@@ -41,7 +41,7 @@
 </mat-toolbar>
 <mat-drawer-container class="admin-container"> 
     <mat-drawer #sidenav [opened]="settings.adminSidenavIsOpened" [mode]="(settings.adminSidenavIsPinned) ? 'side' : 'over'" class="admin-sidenav mat-elevation-z6" autoFocus="false">
-        <perfect-scrollbar>
+        <ng-scrollbar pointerEventsMethod="scrollbar"> 
             <div fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2" [class.show]="settings.adminSidenavUserBlock"> 
                 <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info-wrapper">
                     <img [src]="userImage" alt="user-image">
@@ -59,7 +59,7 @@
                 </div>
             </div> 
             <app-admin-menu [menuItems]="menuItems" [menuParentId]="0"></app-admin-menu>
-        </perfect-scrollbar>
+        </ng-scrollbar>
     </mat-drawer> 
     <mat-drawer-content>  
         <app-breadcrumb></app-breadcrumb>  

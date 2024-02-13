@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface, SwiperPaginationInterface } from '../../theme/components/swiper/swiper.module';
 
 @Component({
   selector: 'app-main-carousel',

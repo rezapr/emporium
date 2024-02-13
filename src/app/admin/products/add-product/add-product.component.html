@@ -1,15 +1,15 @@
-<div class="p-1">
+<div class="p-2">
     <mat-card>
         <mat-card-header>
             <mat-card-title>{{(id) ? 'Edit' : 'Add New'}} Product</mat-card-title>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="pt-3">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" fxLayout="row wrap">
-                <div fxFlex="40" class="px-2"> 
+                <div fxFlex="100" fxFlex.gt-sm="40" class="px-2"> 
                     <p class="mt-1"><span class="uppercase fw-500">Gallery</span><span class="text-muted px-1">(max 8 images)</span></p>  
-                    <input-file formControlName="images" fileLimit="8" fileAccept="image/*"></input-file>  
+                    <input-file formControlName="images" [fileLimit]="8" fileAccept="image/*"></input-file>  
                 </div>
-                <div fxFlex="60" class="px-2">
+                <div fxFlex="100" fxFlex.gt-sm="60" class="px-2">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                             <mat-form-field appearance="outline" class="w-100">

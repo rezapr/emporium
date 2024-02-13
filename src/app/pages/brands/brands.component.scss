@@ -7,10 +7,9 @@
     display: inline-block !important;
 }
 
-.brand-search.mat-form-field{
+.brand-search .mat-mdc-input-element {
     text-align: center;
 }
-
 
 .brands-container {
     column-count: 1;

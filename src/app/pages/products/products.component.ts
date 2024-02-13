@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from '../../shared/products-carousel/product-dialog/product-dialog.component';
 import { AppService } from '../../app.service';
 import { Product, Category } from "../../app.models";
-import { Settings, AppSettings } from 'src/app/app.settings';
-import { isPlatformBrowser } from '@angular/common';
+import { Settings, AppSettings } from 'src/app/app.settings'; 
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-products',
@@ -68,7 +68,7 @@ export class ProductsComponent implements OnInit {
               public appService:AppService, 
               public dialog: MatDialog, 
               private router: Router,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              public domHandlerService: DomHandlerService) {
     this.settings = this.appSettings.settings;
   }
 
@@ -78,10 +78,10 @@ export class ProductsComponent implements OnInit {
     this.sub = this.activatedRoute.params.subscribe(params => {
       //console.log(params['name']);
     });
-    if(window.innerWidth < 960){
+    if(this.domHandlerService.window?.innerWidth < 960){
       this.sidenavOpen = false;
     };
-    if(window.innerWidth < 1280){
+    if(this.domHandlerService.window?.innerWidth < 1280){
       this.viewCol = 33.3;
     };
 
@@ -123,8 +123,8 @@ export class ProductsComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    (window.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
-    (window.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
+    (this.domHandlerService.window?.innerWidth < 960) ? this.sidenavOpen = false : this.sidenavOpen = true;
+    (this.domHandlerService.window?.innerWidth < 1280) ? this.viewCol = 33.3 : this.viewCol = 25;
   }
 
   public changeCount(count){
@@ -157,9 +157,7 @@ export class ProductsComponent implements OnInit {
   public onPageChanged(event){
     this.page = event;
     this.getAllProducts(); 
-    if (isPlatformBrowser(this.platformId)) {
-      window.scrollTo(0,0);
-    } 
+    this.domHandlerService.winScroll(0,0); 
   }
 
   public onChangeCategory(event){

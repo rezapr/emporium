@@ -35,17 +35,21 @@ export class WishlistComponent implements OnInit {
 
   public getQuantity(val){
     this.quantity = val.soldQuantity;
-  }
+  } 
 
-  public addToCart(product:Product){
-    let currentProduct = this.appService.Data.cartList.filter(item=>item.id == product.id)[0];
-    if(currentProduct){
-      if((currentProduct.cartCount + this.quantity) <= product.availibilityCount){
-        product.cartCount = currentProduct.cartCount + this.quantity;
+  public addToCart(product: Product): void { 
+    const currentProduct = this.appService.Data.cartList.find(item => item.id === product.id);
+    if (currentProduct) {
+      const availableCount = product.availibilityCount;
+      const addedCount = currentProduct.cartCount + this.quantity;
+
+      if (addedCount <= availableCount) {
+        product.cartCount = addedCount;
       }
       else{
-        this.snackBar.open('You can not add more items than available. In stock ' + product.availibilityCount + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
-        return false;
+        const errorMessage = `You cannot add more items than available. In stock ${availableCount} items and you already added ${currentProduct.cartCount} item(s) to your cart`;
+        this.snackBar.open(errorMessage, '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
+        return;
       }
     }
     else{

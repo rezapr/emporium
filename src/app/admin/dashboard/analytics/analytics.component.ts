@@ -16,7 +16,7 @@ export class AnalyticsComponent implements OnInit {
   public xAxisLabel = 'Year';
   public showYAxisLabel = false;
   public yAxisLabel = 'Profit';
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#283593', '#039BE5', '#FF5252']
   }; 
   public autoScale = true;

@@ -1,21 +1,22 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Settings, AppSettings } from './app.settings';
 import { TranslateService } from '@ngx-translate/core';
+import { DomHandlerService } from './dom-handler.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   loading: boolean = false;
   public settings: Settings;
+  isServer: boolean = true;
+
   constructor(public appSettings: AppSettings, 
-              public router: Router,
-              @Inject(PLATFORM_ID) private platformId: Object,
-              public translate: TranslateService){
+              public router: Router, 
+              public translate: TranslateService,
+              public domHandlerService: DomHandlerService){
     this.settings = this.appSettings.settings;
     translate.addLangs(['en','de','fr','ru','tr']);
     translate.setDefaultLang('en'); 
@@ -23,15 +24,17 @@ export class AppComponent {
   }
 
   ngOnInit() {
-   // this.router.navigate(['']);  //redirect other pages to homepage on browser refresh    
+   if (this.domHandlerService.isBrowser) {
+      setTimeout(() => {
+        this.isServer = false;
+      })
+    }  
   }
 
   ngAfterViewInit(){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (isPlatformBrowser(this.platformId)) {
-          window.scrollTo(0,0);
-        } 
+        this.domHandlerService.winScroll(0, 0); 
       }
     })  
   }

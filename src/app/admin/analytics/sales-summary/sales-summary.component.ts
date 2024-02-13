@@ -16,7 +16,7 @@ export class SalesSummaryComponent implements OnInit {
   public xAxisLabel = 'Country';
   public showYAxisLabel = true;
   public yAxisLabel = 'Sales';
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060']
   };  
 

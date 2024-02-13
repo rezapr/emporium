@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -28,14 +29,14 @@ export class ReviewsComponent implements OnInit {
   public page: any;
   public count = 6;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public domHandlerService: DomHandlerService) { }
 
   ngOnInit(): void {
   }
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0); 
   }
 
   public unApprove(review:any){ 

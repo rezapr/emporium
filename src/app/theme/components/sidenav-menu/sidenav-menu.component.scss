@@ -1,16 +1,15 @@
 @import "../../styles/mixins";
 
-.menu-expand-icon{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.menu-item{
-    .mat-button{
+.menu-item{    
+    .mat-mdc-button{
         width: 100%;
         font-weight: 400;
         text-transform: uppercase;
+        .mat-icon.menu-expand-icon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
         &.expanded{
             .menu-expand-icon{
                 -webkit-transform: rotate(180deg);
@@ -18,11 +17,8 @@
                 transform: rotate(180deg);
             }
         }
-    }
-    .mat-button-wrapper{
-        padding-left: 16px;
-    }    
-}
+    }   
+} 
 
 .sub-menu{
     @include menu-level-padding();
@@ -31,7 +27,7 @@
     -webkit-transition: max-height 0.25s ease-out;  
     -moz-transition: max-height 0.25s ease-out;  
     transition: max-height 0.25s ease-out;    
-    .mat-button{
+    .mat-mdc-button{
         padding-left: 36px;      
     } 
     &.show{

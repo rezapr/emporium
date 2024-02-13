@@ -1,5 +1,5 @@
-import {Component, ViewEncapsulation, ViewChild, HostListener, ElementRef} from '@angular/core';
-const document: any = window.document;
+import {Component, ViewEncapsulation, ViewChild, HostListener, ElementRef, inject} from '@angular/core';
+import { DomHandlerService } from 'src/app/dom-handler.service'; 
 
 @Component({
   selector: 'app-fullscreen',
@@ -15,16 +15,12 @@ export class FullScreenComponent {
     toggle:boolean = false;
     @ViewChild('expand') private expand:ElementRef;
     @ViewChild('compress') private compress:ElementRef; 
+    domHandlerService = inject(DomHandlerService);
+    document: any = this.domHandlerService.window?.document;
    
-    requestFullscreen(elem) {
+    requestFullscreen(elem: any) {
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            elem.webkitRequestFullscreen();
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
         } else {
             console.log('Fullscreen API is not supported.');
         }
@@ -33,12 +29,6 @@ export class FullScreenComponent {
     exitFullscreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
         } else {
             console.log('Fullscreen API is not supported.');
         }
@@ -54,8 +44,7 @@ export class FullScreenComponent {
     }
 
     @HostListener('window:resize') onFullScreenChange(){
-        let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement ||
-                                document.webkitFullscreenElement || document.msFullscreenElement;
+        let fullscreenElement = document.fullscreenElement;
         if (fullscreenElement != null) {
             this.toggle = true;
         } else {

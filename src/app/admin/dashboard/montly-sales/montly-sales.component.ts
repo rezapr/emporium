@@ -10,7 +10,7 @@ export class MontlySalesComponent implements OnInit {
   public data: any[]; 
   public showLegend = false;
   public gradient = true;
-  public colorScheme = {
+  public colorScheme: any = {
     domain: ['#2F3E9E', '#D22E2E', '#378D3B']
   }; 
   public showLabels = true;

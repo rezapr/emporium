@@ -40,7 +40,7 @@ export class ControlsComponent implements OnInit {
 
 
 
-  public increment(count){
+  public increment(){
     if(this.count < this.product.availibilityCount){
       this.count++;
       let obj = {
@@ -55,7 +55,7 @@ export class ControlsComponent implements OnInit {
     }    
   }
 
-  public decrement(count){
+  public decrement(){
     if(this.count > 1){
       this.count--;
       let obj = {
@@ -71,27 +71,30 @@ export class ControlsComponent implements OnInit {
     this.appService.addToCompare(product);
   }
 
-  public addToWishList(product:Product){
+  public addToWishList(product: Product) {
     this.appService.addToWishList(product);
   }
 
-  public addToCart(product:Product){
-    // console.log(product)
-    let currentProduct = this.appService.Data.cartList.filter(item=>item.id == product.id)[0];
-    if(currentProduct){
-      if((currentProduct.cartCount + this.count) <= this.product.availibilityCount){
-        product.cartCount = currentProduct.cartCount + this.count;
+  public addToCart(product: Product): void { 
+    const currentProduct = this.appService.Data.cartList.find(item => item.id === product.id);
+    if (currentProduct) {
+      const availableCount = this.product.availibilityCount;
+      const addedCount = currentProduct.cartCount + this.count;
+
+      if (addedCount <= availableCount) {
+        product.cartCount = addedCount;
       }
       else{
-        this.snackBar.open('You can not add more items than available. In stock ' + this.product.availibilityCount + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
-        return false;
+        const errorMessage = `You cannot add more items than available. In stock ${availableCount} items and you already added ${currentProduct.cartCount} item(s) to your cart`;
+        this.snackBar.open(errorMessage, '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
+        return;
       }
     }
     else{
       product.cartCount = this.count;
     }
     this.appService.addToCart(product);
-  }
+  }  
 
   public openProductDialog(event){
     this.onOpenProductDialog.emit(event);

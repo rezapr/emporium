@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -23,6 +24,7 @@ export class FollowersComponent implements OnInit {
   ];
   public page: any;
   public count = 6;
+  domHandlerService = inject(DomHandlerService);
 
   constructor(public dialog: MatDialog) { }
 
@@ -31,7 +33,7 @@ export class FollowersComponent implements OnInit {
 
   public onPageChanged(event){
     this.page = event; 
-    window.scrollTo(0,0); 
+    this.domHandlerService.winScroll(0, 0);  
   }
 
   public remove(follower:any){  

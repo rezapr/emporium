@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { Data, AppService } from '../../../app.service';
+import { SwiperConfigInterface } from '../../../theme/components/swiper/swiper.module';
+import { AppService } from '../../../app.service';
 import { Product } from '../../../app.models';
 
 @Component({

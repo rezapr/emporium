@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { Router } from '@angular/router'; 
+import { SwiperConfigInterface } from '../../theme/components/swiper/swiper.module';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
-import { Data, AppService } from '../../app.service';
+import { AppService } from '../../app.service';
 import { Product } from "../../app.models";
 import { Settings, AppSettings } from 'src/app/app.settings';
 

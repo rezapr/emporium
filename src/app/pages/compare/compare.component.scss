@@ -1,18 +1,18 @@
-.compare-table.mat-table {
+.compare-table.mat-mdc-table {
     display: block;
     overflow-x:auto;
-    .mat-row{    
+    .mat-mdc-row{    
         display: flex;    
         border-bottom-width: 1px;
         border-bottom-style: solid;        
         min-width: 920px;
         &:last-child{
-            .mat-cell{
+            .mat-mdc-cell{
                 padding: 20px 16px;
             }
         }
     }
-    .mat-cell{
+    .mat-mdc-cell{
         position: relative;
         display: flex;
         flex: 1;

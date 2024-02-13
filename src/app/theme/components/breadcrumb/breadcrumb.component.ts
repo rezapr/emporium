@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot, UrlSegment, NavigationE
 import { Title } from '@angular/platform-browser';
 import { Settings, AppSettings } from '../../../app.settings';
 import { SidenavMenuService } from '../../../theme/components/sidenav-menu/sidenav-menu.service';
+import { DomHandlerService } from 'src/app/dom-handler.service';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -23,7 +24,8 @@ export class BreadcrumbComponent {
                 public router: Router, 
                 public activatedRoute: ActivatedRoute,                
                 public title:Title,
-                public sidenavMenuService:SidenavMenuService){
+                public sidenavMenuService:SidenavMenuService,
+                public domHandlerService: DomHandlerService){
             this.settings = this.appSettings.settings; 
             this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
@@ -68,7 +70,7 @@ export class BreadcrumbComponent {
     }
 
     public closeSubMenus(){
-        if(window.innerWidth < 960){
+        if(this.domHandlerService.window?.innerWidth < 960){
             this.sidenavMenuService.closeAllSubMenus();
         }    
     }
