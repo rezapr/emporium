@@ -28,8 +28,8 @@ aws ecr get-login-password --region ap-southeast-3 | docker login --username AWS
 
 ~/.docker/config.json
 
-docker build -t amazing:0.8.1 .
+docker build -t amazing:1.2.1 .
 
-docker tag amazing:0.8.1 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:0.8.1
+docker tag amazing:1.2.1 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:1.2.1
 
-docker push 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:0.8.1
+docker push 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:1.2.1
