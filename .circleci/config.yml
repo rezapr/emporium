@@ -20,9 +20,9 @@ jobs:
     docker:
       - image: cimg/node:20.11.0
     environment:
-      SERVER_NAME: registry.digitalocean.com
-      REPO_NAME: sg-invifo-cr-1
-      IMAGE_NAME: invifo-ui:0.1.0
+      SERVER_NAME: 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com
+      REPO_NAME: amazing
+      IMAGE_NAME: amazing:1.0.0
     working_directory: ~/app
     steps:
       - checkout
@@ -32,14 +32,19 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
-            echo "$DOCR_PASS" | docker login -u $DOCR_PASS --password-stdin $SERVER_NAME/$REPO_NAME
+            echo "$AWS_ECR" | docker login -u $AWS_ECR --password-stdin $SERVER_NAME/$REPO_NAME
             docker build -t $IMAGE_NAME .
             docker tag $IMAGE_NAME $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
             docker push $SERVER_NAME/$REPO_NAME/$IMAGE_NAME
 workflows:
   on_commit:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              only:
+                - DEV
+                - QA
       - deploy:
           requires:
             - build_and_test

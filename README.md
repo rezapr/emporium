@@ -22,6 +22,14 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Push commands for amazing
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+aws ecr get-login-password --region ap-southeast-3 | docker login --username AWS --password-stdin 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com
+
+~/.docker/config.json
+
+docker build -t amazing:0.8.1 .
+
+docker tag amazing:0.8.1 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:0.8.1
+
+docker push 751244938937.dkr.ecr.ap-southeast-3.amazonaws.com/amazing:0.8.1
