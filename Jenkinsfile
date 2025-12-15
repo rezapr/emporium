@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/rezapr/emporium.git'
+                git branch: 'main', url: 'git@github.com:rezapr/emporium.git'
             }
         }
         stage('Verify Node.js and npm') {
