@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        nodejs 'angular'
+    }
     environment {
         BUILD_DIR = "dist/app"  // Output folder after Angular build
         DEPLOY_DIR = "/var/lib/jenkins/workspace/emporium-Frontend/emporium" // Target directory for deployment
