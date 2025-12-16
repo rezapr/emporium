@@ -7,8 +7,8 @@ pipeline {
         nodejs 'angular'
     }
     environment {
-        BUILD_DIR = 'src'  // Output folder after Angular build
-        DEPLOY_DIR = 'dist/emporium' // Target directory for deployment
+        BUILD_DIR = 'dist/browser'  // Output folder after Angular build
+        DEPLOY_DIR = 'app/html' // Target directory for deployment
         DOCKER_IMAGE = 'renderman/emporium'
         DOCKER_TAG   = "${BUILD_NUMBER}"
     }
