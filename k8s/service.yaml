@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: emporium-service
+  namespace: binaryit
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 30080
+      protocol: TCP
+    # - name: https
+    #   port: 443
+    #   targetPort: 3002 
+    #   protocol: TCP
+  selector:
+    app: emporium
