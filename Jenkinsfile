@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    //tools {
-        //nodejs 'angular'
-    //}
+    tools {
+        nodejs 'angular'
+    }
     //agent {
         //dockerContainer { image 'node:24-alpine' }
     //}  
