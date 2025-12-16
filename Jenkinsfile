@@ -30,6 +30,7 @@ pipeline {
         }
         stage('Build Angular App') {
             steps {
+                sh 'ls -lah dist'
                 sh 'ng build --configuration=production'
             }
         }
