@@ -30,9 +30,8 @@ pipeline {
         }
         stage('Build Angular App') {
             steps {
-                sh 'mkdir dist/app'
-                sh 'ls -lah dist'
                 sh 'ng build --configuration=production'
+                sh 'ls -lh dist'
             }
         }
         stage('Deploy') {
