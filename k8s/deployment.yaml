@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: emporium
-          image: renderman/emporium:10  
+          image: renderman/emporium:11
           resources:
             requests:
               memory: "64Mi"
