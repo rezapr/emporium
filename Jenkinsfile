@@ -1,79 +1,47 @@
 pipeline {
-    agent {
-        dockerContainer { image 'node:24-alpine' }
-    } 
-    tools {
-        nodejs 'angular'
-    }
+    agent none
+
     environment {
-        BUILD_DIR = 'src'  // Output folder after Angular build
-        DEPLOY_DIR = 'dist/emporium' // Target directory for deployment
         DOCKER_IMAGE = 'renderman/emporium'
         DOCKER_TAG   = "${BUILD_NUMBER}"
     }
+
     stages {
-        stage('Verify Node.js and npm') {
-            steps {
-                sh 'node -v'
-                sh 'npm -v'
-                sh 'ng version'
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm i'
-            }
-        }
-        stage('Build Angular App') {
-            steps {
-                sh 'ng build --configuration=production'
-            }
-        }
-        stage('Copy App Build') {
-            steps {
-                script {
-                    if (fileExists(BUILD_DIR)) {
-                        echo "🚀 Deploying build to ${DEPLOY_DIR}..."
-                        // Ignore errors if DEPLOY_DIR does not exist
-                        sh "rm -rf ${DEPLOY_DIR} || true"
 
-                        // Create the deployment directory
-                        sh "mkdir -p ${DEPLOY_DIR}"
-
-                        // Copy build artifacts
-                        sh "cp -r ${BUILD_DIR}/* ${DEPLOY_DIR}/"
-                        echo '✅ Deployment complete.'
-                   } else {
-                        error "❌ Build directory not found: ${BUILD_DIR}"
-                    }
+        stage('Build Angular') {
+            agent {
+                docker {
+                    image 'node:24-alpine'
+                    args '-u root'
                 }
             }
+            steps {
+                sh '''
+                  node -v
+                  npm -v
+                  npm install -g @angular/cli
+                  npm install
+                  ng build --configuration=production
+                '''
+            }
         }
-        stage('Build & Push Image') {
+
+        stage('Build & Push Docker Image') {
+            agent { label 'docker' }   // ⬅ node Jenkins yg punya docker
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-rezapr',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh """
+                    sh '''
+                      docker version
                       docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
                       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                       docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
-                    """
+                    '''
                 }
             }
-        }
-    } // end of stages
-    post {
-        always {
-            sh "docker logout || true"
-        }
-        success {
-            echo '✅ Build and Deployment Successful!'
-        }
-        failure {
-            echo '❌ Build Failed!'
         }
     }
 }
