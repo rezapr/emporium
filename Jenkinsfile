@@ -4,7 +4,7 @@ pipeline {
         //nodejs 'angular'
     //}
     agent {
-        dockerContainer { image 'node:24-alpine' }
+        docker { image 'node:24-alpine' }
     }  
     environment {
         BUILD_DIR = "dist/app"  // Output folder after Angular build
