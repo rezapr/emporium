@@ -1,12 +1,12 @@
-FROM node:lts-alpine as build
-WORKDIR /app
-COPY package.json .
-RUN yarn install
-COPY . .
-RUN apk add gettext
-RUN yarn build
+# FROM node:lts-alpine as build
+# WORKDIR /app
+# COPY package.json .
+# RUN yarn install
+# COPY . .
+# RUN apk add gettext
+# RUN yarn build
 
 FROM nginx:stable-alpine
-COPY --from=build /app/dist/browser /usr/share/nginx/html
+COPY --from=build /dist/emporium /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
