@@ -27,6 +27,6 @@ spec:
           tty: true 
           imagePullPolicy: Always
           ports:
-            - containerPort: 30080
+            - containerPort: 80
       restartPolicy: Always
       
