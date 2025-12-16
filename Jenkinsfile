@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'  // More reliable than 'npm install' for CI/CD
+                sh 'npm i'
             }
         }
         stage('Build Angular App') {
