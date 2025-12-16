@@ -53,7 +53,7 @@ pipeline {
         stage('Build & Push Image') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-rezapr',
+                    credentialsId: 'dockerhub-renderman',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
