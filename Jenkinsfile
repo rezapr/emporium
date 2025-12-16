@@ -8,7 +8,7 @@ pipeline {
     //}  
     environment {
         BUILD_DIR = "src"  // Output folder after Angular build
-        DEPLOY_DIR = "/var/lib/jenkins/workspace/emporium-Frontend/emporium" // Target directory for deployment
+        DEPLOY_DIR = "dist/emporium" // Target directory for deployment
     }
     stages {
         stage('Clone Repository') {
@@ -31,7 +31,6 @@ pipeline {
         stage('Build Angular App') {
             steps {
                 sh 'ng build --configuration=production'
-                sh 'ls -lh src/app'
             }
         }
         stage('Deploy') {
