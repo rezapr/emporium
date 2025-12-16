@@ -1,11 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:18-alpine'
-      args '-u root'
-    }
-  }
-
+    agent any
     environment {
         BUILD_DIR = "dist/app"  // Output folder after Angular build
         DEPLOY_DIR = "/var/lib/jenkins/workspace/emporium-Frontend/emporium" // Target directory for deployment
