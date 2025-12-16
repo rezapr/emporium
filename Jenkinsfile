@@ -7,7 +7,7 @@ pipeline {
         //dockerContainer { image 'node:24-alpine' }
     //}  
     environment {
-        BUILD_DIR = "dist/app"  // Output folder after Angular build
+        BUILD_DIR = "src"  // Output folder after Angular build
         DEPLOY_DIR = "/var/lib/jenkins/workspace/emporium-Frontend/emporium" // Target directory for deployment
     }
     stages {
@@ -31,7 +31,7 @@ pipeline {
         stage('Build Angular App') {
             steps {
                 sh 'ng build --configuration=production'
-                sh 'ls -lh src'
+                sh 'ls -lh src/app'
             }
         }
         stage('Deploy') {
