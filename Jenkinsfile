@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build Angular') {
             agent {
-                docker {
+                dockerContainer {
                     image 'node:24-alpine'
                     args '-u root'
                 }
