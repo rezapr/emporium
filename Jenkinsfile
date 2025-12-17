@@ -10,7 +10,8 @@ pipeline {
         BUILD_DIR = 'dist/browser'  // Output folder after Angular build
         DEPLOY_DIR = 'app/html' // Target directory for deployment
         DOCKER_IMAGE = 'renderman/emporium'
-        DOCKER_TAG   = "${BUILD_NUMBER}"
+        // DOCKER_TAG   = "${BUILD_NUMBER}"
+        DOCKER_TAG   = '12'
     }
     stages {
         stage('Verify Node.js and npm') {
